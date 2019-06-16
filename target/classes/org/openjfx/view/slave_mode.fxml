@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.controller.SlaveController">
+
+    <children>
+        <Label layoutX="35.0" layoutY="71.0" text="address:">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="35.0" layoutY="107.0" text="frame spaces:">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <ChoiceBox fx:id="address" layoutX="373.0" layoutY="69.0" prefWidth="150.0" />
+        <ChoiceBox fx:id="frameSpace" layoutX="373.0" layoutY="105.0" prefWidth="150.0" />
+        <TextArea fx:id="receivedText" layoutX="35.0" layoutY="221.0" prefHeight="144.0" prefWidth="362.0" />
+        <Button fx:id="btn_send" layoutX="428.0" layoutY="250.0" mnemonicParsing="false" onAction="#receive" text="Receive" />
+      <Button fx:id="btn_ping" layoutX="438.0" layoutY="293.0" mnemonicParsing="false" onAction="#ping" text="PING" />
+      <Button fx:id="btn_return" layoutX="438.0" layoutY="340.0" mnemonicParsing="false" onAction="#returnToSettings" text="return to settings" />
+    </children>
+
+</AnchorPane>

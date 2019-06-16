@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.controller.MasterController">
+   <children>
+      <Label layoutX="35.0" layoutY="32.0" text="timeout:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="71.0" text="retransmition number:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="107.0" text="frame spaces:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="timeout" layoutX="373.0" layoutY="30.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="retransmitionNumber" layoutX="373.0" layoutY="69.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="frameSpace" layoutX="373.0" layoutY="105.0" prefWidth="150.0" />
+      <TextArea fx:id="inputText" layoutX="35.0" layoutY="221.0" prefHeight="144.0" prefWidth="362.0" />
+      <Button fx:id="btn_send" layoutX="448.0" layoutY="247.0" mnemonicParsing="false" onAction="#send" text="Send" />
+      <Button fx:id="btn_ping" layoutX="448.0" layoutY="288.0" mnemonicParsing="false" onAction="#ping" text="PING" />
+      <Label layoutX="35.0" layoutY="158.0" text="slave address:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="slaveAddress" layoutX="373.0" layoutY="156.0" prefWidth="150.0" />
+      <Button fx:id="btn_return" layoutX="408.0" layoutY="329.0" mnemonicParsing="false" onAction="#returnToSettings" text="return to settings" />
+   </children>
+</AnchorPane>
