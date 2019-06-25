@@ -57,7 +57,7 @@ public class MasterController implements Initializable {
         MasterSettings settings = new MasterSettings(retransmitionNumber.getValue(), timeoutValue, frameSpaceValue,
               inputText.getText(), slaveAddress.getValue());
 
-        portService.SendToSlave(settings);
+        //portService.SendString(settings,"123");
 
     }
 
