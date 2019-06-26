@@ -51,7 +51,7 @@ public class SlaveController implements Initializable {
 
         SlaveSettings settings = new SlaveSettings(address.getValue(), frameSpaceValue, receivedText.getText());
 
-        receivedText.setText(portService.ReceiveFromMaster(settings).getReceivedText());
+        //receivedText.setText(portService.ReceiveFromMaster(settings).getReceivedText());
     }
 
     @Override
