@@ -14,6 +14,7 @@ public class PortSettings {
     public static String terminator;
     public static String terminatorChar;
 
+
  public String getPortDescription() {
   return port;
  }
@@ -38,6 +39,5 @@ public class PortSettings {
    case 'O': parity=SerialPort.ODD_PARITY;
   }
   return parity;
-
  }
 }
