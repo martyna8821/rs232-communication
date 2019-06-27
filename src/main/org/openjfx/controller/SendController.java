@@ -13,8 +13,10 @@ import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SendController implements Initializable {
@@ -33,9 +35,19 @@ public class SendController implements Initializable {
     @FXML
     public Button btn_return;
 
+
     @FXML
     public void send(ActionEvent event) throws Exception {
-         portService.sendString(portService.getInitializedPort(new PortSettings()), inputText.getText());
+        String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
+        portService.sendString(portService.getInitializedPort(new PortSettings()), messageToSend);
+    }
+
+    private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
+        String result = "";
+        for(Character character : terminatorCharacters) {
+            result += character;
+        }
+        return result;
     }
 
     @Override
