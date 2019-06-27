@@ -86,7 +86,7 @@ public class MainController implements Initializable {
         parity.getSelectionModel().select(0);
         dataFieldLength.setItems(FXCollections.observableArrayList(7,8));
         dataFieldLength.getSelectionModel().select(0);
-        flowControl.setItems(FXCollections.observableArrayList("none", "hardware", "software"));
+        flowControl.setItems(FXCollections.observableArrayList("none", "DTR/DSR", "RTS/CTS", "XON/XOFF"));
         flowControl.getSelectionModel().select(0);
         baudRate.setItems(FXCollections.observableArrayList(150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600 ,117760));
         baudRate.getSelectionModel().select(0);
