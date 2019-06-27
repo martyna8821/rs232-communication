@@ -1,6 +1,8 @@
 package org.openjfx.controller;
 
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController implements Initializable, SerialPortDataListener {
 
     @FXML
     public ChoiceBox<Integer> baudRate;
@@ -54,15 +56,23 @@ public class MainController implements Initializable {
 
     private SerialPortService portService = new SerialPortService();
 
+    private boolean portOpened = false;
+
     @FXML
     public void ping(ActionEvent event) {
-        receivedText.setText(portService.ping(PortSettings.openedPort));
+        if(portOpened) {
+            receivedText.setText(portService.ping(PortSettings.openedPort));
+        }
+        else System.out.println("port nie jest otwarty!");
     }
 
     @FXML
      public void sendText(ActionEvent event) {
-        String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
-        portService.sendString(PortSettings.openedPort, messageToSend);
+        if(portOpened) {
+            String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
+            portService.sendString(PortSettings.openedPort, messageToSend);
+        }
+        else System.out.println("port nie jest otwarty!");
     }
 
     private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
@@ -76,12 +86,22 @@ public class MainController implements Initializable {
     @FXML
     public void openPort(ActionEvent event) {
         fillSettings();
-       // PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
+        PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
+        if(PortSettings.openedPort == null){
+            receivedText.setText("nie udalo sie otworzyc portu");
+        }
+        else{
+            portOpened = true;
+        }
     }
 
     @FXML
     public void closePort(ActionEvent event) {
-
+        if(portOpened) {
+            PortSettings.openedPort.closePort();
+            portOpened = false;
+        }
+        else System.out.println("port nie jest otwarty!");
     }
 
 
@@ -167,5 +187,41 @@ public class MainController implements Initializable {
             }
         }
         PortSettings.terminator = terminator.getValue();
+    }
+    private String truncateReceivedTextToTerminator(String receivedText) {
+        return receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()))[0];
+    }
+
+    private String terminatorCharactersAsString(List<Character> terminatorCharacters) {
+        String result = "";
+        for(Character character : terminatorCharacters) {
+            result += character;
+        }
+        return result;
+    }
+
+    @Override
+    public int getListeningEvents() {
+        return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+    }
+
+    @Override
+    public void serialEvent(SerialPortEvent event) {
+        String data;
+        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
+            return;
+        byte[] readBuffer = new byte[PortSettings.openedPort.bytesAvailable()];
+        data = readBuffer.toString();
+        int numRead = PortSettings.openedPort.readBytes(readBuffer, readBuffer.length);
+        if(data.equals("ping")){
+            portService.sendString(PortSettings.openedPort,"pong");
+            System.out.println("Ktos mnie pinguje");
+        }
+        else{
+
+            System.out.println("Przeczytano " + numRead + " bajtow.");
+            System.out.println("Wiadomośc: " + data);
+            receivedText.setText(truncateReceivedTextToTerminator(data));
+        }
     }
 }

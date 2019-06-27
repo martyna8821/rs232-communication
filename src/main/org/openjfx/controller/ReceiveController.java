@@ -36,17 +36,7 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
 
 
 
-    private String truncateReceivedTextToTerminator(String receivedText) {
-        return receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()))[0];
-    }
 
-    private String terminatorCharactersAsString(List<Character> terminatorCharacters) {
-        String result = "";
-        for(Character character : terminatorCharacters) {
-            result += character;
-        }
-        return result;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,28 +58,13 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
     }
 
     @Override
-    public int getListeningEvents() {
-        return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+    public int getListeningEvents(){
+        return 0;
     }
 
     @Override
     public void serialEvent(SerialPortEvent event) {
-        String data;
-        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-            return;
-        byte[] readBuffer = new byte[PortSettings.openedPort.bytesAvailable()];
-        data = readBuffer.toString();
-        int numRead = PortSettings.openedPort.readBytes(readBuffer, readBuffer.length);
-        if(data.equals("ping")){
-            portService.sendString(PortSettings.openedPort,"pong");
-            System.out.println("Ktos mnie pinguje");
-        }
-        else{
 
-        System.out.println("Przeczytano " + numRead + " bajtow.");
-        System.out.println("Wiadomośc: " + data);
-        receivedText.setText(truncateReceivedTextToTerminator(data));
-        }
 
 
     }
