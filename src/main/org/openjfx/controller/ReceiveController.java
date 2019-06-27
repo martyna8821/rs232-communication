@@ -1,5 +1,8 @@
 package org.openjfx.controller;
 
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class ReceiveController implements Initializable {
+public class ReceiveController implements Initializable, SerialPortDataListener {
 
     private SerialPortService portService;
 
@@ -30,12 +33,8 @@ public class ReceiveController implements Initializable {
     @FXML
     public Button btn_return;
 
-   /*TODO
-    * jak teraz odbieramy dane?
-    */
-    public void receive(ActionEvent event) throws  Exception{
-        receivedText.setText(truncateReceivedTextToTerminator(portService.reciveData(portService.getInitializedPort(new PortSettings()))));
-    }
+
+
 
     private String truncateReceivedTextToTerminator(String receivedText) {
         return receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()))[0];
@@ -64,5 +63,33 @@ public class ReceiveController implements Initializable {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         SceneLoader.loadScene("view/main_scene.fxml",
                 "SerialPortCommunication", stage);
+    }
+
+    @Override
+    public int getListeningEvents() {
+        return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+    }
+
+    @Override
+    public void serialEvent(SerialPortEvent event) {
+        String data;
+        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
+            return;
+        byte[] readBuffer = new byte[PortSettings.openedPort.bytesAvailable()];
+        data = readBuffer.toString();
+        int numRead = PortSettings.openedPort.readBytes(readBuffer, readBuffer.length);
+        if(data.equals("ping")){
+            portService.sendString(PortSettings.openedPort,"pong");
+            System.out.println("Ktos mnie pinguje");
+        }
+        else{
+
+        System.out.println("Przeczytano " + numRead + " bajtow.");
+        System.out.println("Wiadomośc: " + data);
+        receivedText.setText(truncateReceivedTextToTerminator(data));
+        }
+
+
+
     }
 }
