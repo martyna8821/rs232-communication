@@ -7,7 +7,7 @@ import org.openjfx.model.settings.PortSettings;
 
 public class SerialPortService {
 
-    public SerialPort getInitializedPort(PortSettings settings){
+    public SerialPort getInitializedPort(PortSettings settings, SerialPortDataListener dataListener){
         SerialPort port = SerialPort.getCommPort(settings.getPortDescription());
         if(port!=null) {
             System.out.println("otrzymano port:" + port.getDescriptivePortName());
@@ -28,6 +28,7 @@ public class SerialPortService {
             System.out.println("Nie udało sie dostać żadnego portu => JESTESMY W DUPIE");
         }
         port.openPort();
+        port.addDataListener(dataListener);
         return port;
     }
 
