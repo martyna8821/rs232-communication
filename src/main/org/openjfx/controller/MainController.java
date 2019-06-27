@@ -41,28 +41,28 @@ public class MainController implements Initializable {
     public ChoiceBox<String> terminator;
 
     @FXML
-    public Button btn_master;
+    public Button btn_receive;
 
     @FXML
     public ChoiceBox<String> flowControl;
 
     @FXML
-    public Button btn_slave;
+    public Button btn_send;
 
 
 
     @FXML
-    public void master_chosen(ActionEvent event) throws Exception {
+    public void receive_chosen(ActionEvent event) throws Exception {
         fillSettings();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/master_mode.fxml", "MASTER", stage);
+        SceneLoader.loadScene("view/receive_mode.fxml", "receive", stage);
     }
 
     @FXML
-    public void slave_chosen(ActionEvent event) throws Exception{
+    public void send_chosen(ActionEvent event) throws Exception{
         fillSettings();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/slave_mode.fxml", "SLAVE", stage);
+        SceneLoader.loadScene("view/send_mode.fxml", "receive", stage);
     }
 
     @Override
