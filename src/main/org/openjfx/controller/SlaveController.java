@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.openjfx.model.SceneLoader;
 import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.SlaveSettings;
+import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -51,7 +52,22 @@ public class SlaveController implements Initializable {
 
         SlaveSettings settings = new SlaveSettings(address.getValue(), frameSpaceValue, receivedText.getText());
 
+
+        // !! użyć metody truncateReceivedTextToTerminator i tekst, który ona wypluje ustawiać dopiero na widoku !!
+
         //receivedText.setText(portService.ReceiveFromMaster(settings).getReceivedText());
+    }
+
+    private String truncateReceivedTextToTerminator(String receivedText) {
+        return receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()))[0];
+    }
+
+    private String terminatorCharactersAsString(List<Character> terminatorCharacters) {
+        String result = "";
+        for(Character character : terminatorCharacters) {
+            result += character;
+        }
+        return result;
     }
 
     @Override
