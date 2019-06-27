@@ -33,7 +33,8 @@ public class SerialPortService {
     }
 
     public void sendString(SerialPort port,String message){
-        port.openPort();
+        if(port.openPort())
+            System.out.println("");
         int bytesWritten = port.writeBytes(message.getBytes(), message.length());
         if(bytesWritten >0)  System.out.println("Coś sie wysłało, jest dobrze (y)");
         else System.out.println("Nic sie nie wysłało");
