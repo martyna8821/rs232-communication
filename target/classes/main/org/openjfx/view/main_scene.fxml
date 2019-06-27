@@ -8,61 +8,67 @@
 <?import javafx.scene.layout.*?>
 <?import org.openjfx.view.* ?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.controller.MainController">
    <children>
-      <AnchorPane layoutY="-13.0" prefHeight="401.0" prefWidth="600.0">
+      <AnchorPane layoutY="-16.0" prefHeight="490.0" prefWidth="640.0">
          <children>
-            <Label layoutX="43.0" layoutY="14.0" prefHeight="34.0" prefWidth="69.0" text="port:">
+            <Label layoutX="16.0" layoutY="15.0" prefHeight="34.0" prefWidth="69.0" text="port:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="btn_receive" layoutX="50.0" layoutY="327.0" mnemonicParsing="false" onAction="#receive_chosen" prefHeight="60.0" prefWidth="159.0" text="receive" />
-            <Button fx:id="btn_send" layoutX="342.0" layoutY="327.0" mnemonicParsing="false" onAction="#send_chosen" prefHeight="60.0" prefWidth="159.0" text="send" />
-            <Label layoutX="43.0" layoutY="48.0" prefHeight="34.0" prefWidth="97.0" text="baud rate:">
+            <Button fx:id="pingBtn" layoutX="364.0" layoutY="451.0" mnemonicParsing="false" onAction="#ping" prefHeight="19.0" prefWidth="91.0" text="ping" />
+            <Button fx:id="sendBtn" layoutX="101.0" layoutY="451.0" mnemonicParsing="false" onAction="#sendText" prefHeight="25.0" prefWidth="91.0" text="send" />
+            <Label layoutX="10.0" layoutY="49.0" prefHeight="34.0" prefWidth="97.0" text="baud rate:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="29.0" layoutY="100.0" prefHeight="34.0" prefWidth="97.0" text="char format:">
+            <Label layoutX="10.0" layoutY="94.0" prefHeight="34.0" prefWidth="97.0" text="char format:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="62.0" layoutY="129.0" prefHeight="34.0" prefWidth="136.0" text="data field length:">
+            <Label layoutX="23.0" layoutY="124.0" prefHeight="34.0" prefWidth="136.0" text="data field length:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="58.0" layoutY="157.0" prefHeight="34.0" prefWidth="136.0" text="parity:">
+            <Label layoutX="23.0" layoutY="159.0" prefHeight="34.0" prefWidth="136.0" text="parity:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="58.0" layoutY="184.0" prefHeight="34.0" prefWidth="136.0" text="stop:">
+            <Label layoutX="23.0" layoutY="185.0" prefHeight="34.0" prefWidth="136.0" text="stop:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="29.0" layoutY="217.0" prefHeight="34.0" prefWidth="97.0" text="flow control:">
+            <Label layoutX="10.0" layoutY="222.0" prefHeight="25.0" prefWidth="97.0" text="flow control:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="29.0" layoutY="251.0" prefHeight="34.0" prefWidth="97.0" text="terminator:">
+            <Label layoutX="10.0" layoutY="252.0" prefHeight="34.0" prefWidth="97.0" text="terminator:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="port" layoutX="300.0" layoutY="19.0" prefHeight="25.0" prefWidth="215.0" />
-            <ChoiceBox fx:id="baudRate" layoutX="300.0" layoutY="53.0" prefHeight="25.0" prefWidth="91.0" />
-            <ChoiceBox fx:id="dataFieldLength" layoutX="300.0" layoutY="134.0" prefHeight="25.0" prefWidth="50.0" />
-            <ChoiceBox fx:id="parity" layoutX="300.0" layoutY="162.0" prefHeight="25.0" prefWidth="50.0" />
-            <ChoiceBox fx:id="stop" layoutX="300.0" layoutY="189.0" prefHeight="25.0" prefWidth="50.0" />
-            <ChoiceBox fx:id="flowControl" layoutX="297.0" layoutY="222.0" prefHeight="25.0" prefWidth="91.0" />
-            <ChoiceBox fx:id="terminator" layoutX="297.0" layoutY="256.0" prefHeight="25.0" prefWidth="91.0" />
-            <TextField fx:id="terminatorChar" layoutX="416.0" layoutY="256.0" prefHeight="25.0" prefWidth="34.0" />
-            <Label layoutX="416.0" layoutY="55.0" prefHeight="25.0" prefWidth="50.0" text="bit/s" />
+            <ChoiceBox fx:id="port" layoutX="146.0" layoutY="20.0" prefHeight="25.0" prefWidth="215.0" />
+            <ChoiceBox fx:id="baudRate" layoutX="153.0" layoutY="55.0" prefHeight="25.0" prefWidth="91.0" />
+            <ChoiceBox fx:id="dataFieldLength" layoutX="159.0" layoutY="128.0" prefHeight="25.0" prefWidth="50.0" />
+            <ChoiceBox fx:id="parity" layoutX="159.0" layoutY="163.0" prefHeight="25.0" prefWidth="50.0" />
+            <ChoiceBox fx:id="stop" layoutX="159.0" layoutY="190.0" prefHeight="25.0" prefWidth="50.0" />
+            <ChoiceBox fx:id="flowControl" layoutX="139.0" layoutY="222.0" prefHeight="25.0" prefWidth="91.0" />
+            <ChoiceBox fx:id="terminator" layoutX="139.0" layoutY="257.0" prefHeight="25.0" prefWidth="91.0" />
+            <TextField fx:id="terminatorChar" layoutX="237.0" layoutY="257.0" prefHeight="25.0" prefWidth="34.0" />
+            <Label layoutX="272.0" layoutY="54.0" prefHeight="25.0" prefWidth="50.0" text="bit/s" />
+            <TextArea fx:id="inputText" layoutX="34.0" layoutY="336.0" prefHeight="106.0" prefWidth="225.0" />
+            <TextArea fx:id="receivedText" layoutX="297.0" layoutY="336.0" prefHeight="106.0" prefWidth="225.0" />
+            <Label layoutX="51.0" layoutY="313.0" text="Text to send:" />
+            <Label layoutX="322.0" layoutY="313.0" text="Received text:" />
+            <Button fx:id="openPortBtn" layoutX="371.0" layoutY="222.0" mnemonicParsing="false" onAction="#openPort" prefHeight="25.0" prefWidth="169.0" text="open port" />
+            <Button fx:id="closePortBtn" layoutX="371.0" layoutY="257.0" mnemonicParsing="false" onAction="#closePort" prefHeight="25.0" prefWidth="169.0" text="close port" />
          </children>
       </AnchorPane>
    </children>

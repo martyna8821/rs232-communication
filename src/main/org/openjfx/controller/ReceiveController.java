@@ -57,7 +57,7 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
 
     @FXML
     public void ping(ActionEvent event) {
-        //portService.ping();
+        receivedText.setText(portService.ping(PortSettings.openedPort));
     }
 
     @FXML
@@ -90,7 +90,6 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
         System.out.println("Wiadomośc: " + data);
         receivedText.setText(truncateReceivedTextToTerminator(data));
         }
-
 
 
     }

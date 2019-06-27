@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.openjfx.model.SerialPortService;
@@ -17,91 +18,101 @@ import org.openjfx.model.settings.PortSettings;
 import org.openjfx.model.SceneLoader;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
     @FXML
     public ChoiceBox<Integer> baudRate;
-
     @FXML
     public ChoiceBox<Integer> dataFieldLength;
-
     @FXML
     public ChoiceBox<Integer> stop;
-
     @FXML
     public TextField terminatorChar;
-
     @FXML
     public ChoiceBox<String> port;
-
     @FXML
     public ChoiceBox<Character> parity;
-
     @FXML
     public ChoiceBox<String> terminator;
-
-    @FXML
-    public Button btn_receive;
-
     @FXML
     public ChoiceBox<String> flowControl;
+    @FXML
+    public Button sendBtn;
+    @FXML
+    public TextArea receivedText;
+    @FXML
+    public Button openPortBtn;
+    @FXML
+    public Button closePortBtn;
+    @FXML
+    public Button pingBtn;
+    @FXML
+    public TextArea inputText;
+
+    private SerialPortService portService = new SerialPortService();
 
     @FXML
-    public Button btn_send;
-
-
-
-    @FXML
-    public void receive_chosen(ActionEvent event) throws Exception {
-        fillSettings();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/receive_mode.fxml", "receive", stage);
+    public void ping(ActionEvent event) {
+        receivedText.setText(portService.ping(PortSettings.openedPort));
     }
 
     @FXML
-    public void send_chosen(ActionEvent event) throws Exception{
-        fillSettings();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/send_mode.fxml", "receive", stage);
+     public void sendText(ActionEvent event) {
+        String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
+        portService.sendString(PortSettings.openedPort, messageToSend);
     }
+
+    private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
+        StringBuilder result = new StringBuilder();
+        for(Character character : terminatorCharacters) {
+            result.append(character);
+        }
+        return result.toString();
+    }
+
+    @FXML
+    public void openPort(ActionEvent event) {
+        fillSettings();
+       // PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
+    }
+
+    @FXML
+    public void closePort(ActionEvent event) {
+
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> availableTerminators = FXCollections.observableArrayList("none","CR",
-                "LF", "CR-LF","custom" );
-        terminator.setItems(availableTerminators);
+
+        terminator.setItems(FXCollections.observableArrayList("none","CR","LF", "CR-LF","custom" ));
         terminator.getSelectionModel().select(0);
         terminator.getSelectionModel().selectedItemProperty()
                 .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                    if (newValue.equals("custom") && terminatorChar.getText().equals("")){
-                       btn_receive.setDisable(true);
-                       btn_send.setDisable(true);
+                       openPortBtn.setDisable(true);
                    }
                    else{
-                       btn_receive.setDisable(false);
-                       btn_send.setDisable(false);
+                       openPortBtn.setDisable(false);
                    }
                 });
 
         terminatorChar.textProperty().addListener((observable, oldValue, newValue) -> {
             if(terminator.getValue().equals("custom") && newValue.equals("")){
-                btn_receive.setDisable(true);
-                btn_send.setDisable(true);
+                openPortBtn.setDisable(true);
             }
             else{
-                btn_receive.setDisable(false);
-                btn_send.setDisable(false);
+                openPortBtn.setDisable(false);
             }
-
         });
 
 
         SerialPort[] ports = SerialPort.getCommPorts();
         if(ports.length == 0){
-            btn_send.setDisable(true);
-            btn_receive.setDisable(true);
+            openPortBtn.setDisable(true);
         }
         ObservableList<String> availablePorts = FXCollections.observableArrayList();
         for(SerialPort port: ports){
@@ -120,7 +131,6 @@ public class MainController implements Initializable {
         flowControl.getSelectionModel().select(0);
         baudRate.setItems(FXCollections.observableArrayList(150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600 ,117760));
         baudRate.getSelectionModel().select(0);
-
     }
 
 
@@ -129,7 +139,6 @@ public class MainController implements Initializable {
         PortSettings.dataFieldLength = dataFieldLength.getValue();
         PortSettings.flowControl = flowControl.getValue();
         PortSettings.parity = parity.getValue();
-   //     PortSettings.port = SerialPort.getCommPort(port.getValue());
         PortSettings.port = port.getValue();
         PortSettings.stop = stop.getValue();
         switch (terminator.getValue()) {
@@ -158,12 +167,5 @@ public class MainController implements Initializable {
             }
         }
         PortSettings.terminator = terminator.getValue();
-
     }
-    /*
-    private void openPort(){
-        SerialPort port = new SerialPortService().getInitializedPort(new PortSettings());
-        PortSettings.openedPort = port;
-    }
-    */
 }
