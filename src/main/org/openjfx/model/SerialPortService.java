@@ -25,6 +25,7 @@ public class SerialPortService {
         else{
             System.out.println("Nie udało sie dostać żadnego portu => JESTESMY W DUPIE");
         }
+        port.openPort();
         return port;
     }
 

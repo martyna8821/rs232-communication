@@ -22,9 +22,6 @@ public class ReceiveController implements Initializable {
     private SerialPortService portService;
 
     @FXML
-    public Button btn_send;
-
-    @FXML
     public TextArea receivedText;
 
     @FXML
@@ -33,7 +30,9 @@ public class ReceiveController implements Initializable {
     @FXML
     public Button btn_return;
 
-    @FXML
+   /*TODO
+    * jak teraz odbieramy dane?
+    */
     public void receive(ActionEvent event) throws  Exception{
         receivedText.setText(truncateReceivedTextToTerminator(portService.reciveData(portService.getInitializedPort(new PortSettings()))));
     }

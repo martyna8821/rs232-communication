@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PortSettings {
 
-   // public static SerialPort port;
+    public static SerialPort openedPort;
     public static String port;
     public static int baudRate;
     public static int dataFieldLength;
