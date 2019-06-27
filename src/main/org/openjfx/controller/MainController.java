@@ -102,9 +102,31 @@ public class MainController implements Initializable {
    //     PortSettings.port = SerialPort.getCommPort(port.getValue());
         PortSettings.port = port.getValue();
         PortSettings.stop = stop.getValue();
+        switch (terminator.getValue()) {
+            // jeśli none, to ustawimy poniżej tylko terminator na "none"
+            case "CR": {
+                PortSettings.terminatorChars.add((char)13);
+                break;
+            }
+            case "LF": {
+                PortSettings.terminatorChars.add((char)10);
+                break;
+            }
+            case "CR-LF": {
+                PortSettings.terminatorChars.add((char)13);
+                PortSettings.terminatorChars.add((char)10);
+                break;
+            }
+            case "custom": {
+                String input = terminatorChar.getText(0, 2);
+                for (int i = 0; i < input.length(); i++) {
+                    PortSettings.terminatorChars.add(input.charAt(i));
+                }
+                int a = 5;
+                break;
+            }
+        }
         PortSettings.terminator = terminator.getValue();
-        if(PortSettings.terminator.equals("custom"))
-            PortSettings.terminatorChar = terminatorChar.getText(0,1);
 
     }
 }
