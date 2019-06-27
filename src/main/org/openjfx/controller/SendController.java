@@ -1,4 +1,5 @@
 package org.openjfx.controller;
+import com.fazecast.jSerialComm.SerialPort;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,6 +50,7 @@ public class SendController implements Initializable {
         }
         return result;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

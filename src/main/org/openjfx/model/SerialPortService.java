@@ -1,11 +1,13 @@
 package org.openjfx.model;
 
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import org.openjfx.model.settings.PortSettings;
 
 public class SerialPortService {
 
-    public SerialPort getInitializedPort(PortSettings settings){
+    public SerialPort getInitializedPort(PortSettings settings, SerialPortDataListener dataListener){
         SerialPort port = SerialPort.getCommPort(settings.getPortDescription());
         if(port!=null) {
             System.out.println("otrzymano port:" + port.getDescriptivePortName());
@@ -26,6 +28,7 @@ public class SerialPortService {
             System.out.println("Nie udało sie dostać żadnego portu => JESTESMY W DUPIE");
         }
         port.openPort();
+        port.addDataListener(dataListener);
         return port;
     }
 
@@ -38,52 +41,9 @@ public class SerialPortService {
     }
 
 
-    /*TODO
-     * nie trzeba sprawdzac tez terminatora?
-     */
-    public String reciveData(SerialPort port){
-        port.openPort();
-        String recivedText = "";
-        String data;
-        try {
-            while (true)
-            {
-                while (port.bytesAvailable() == 0)
-                    Thread.sleep(20);
 
-                byte[] readBuffer = new byte[port.bytesAvailable()];
-                data = readBuffer.toString();
-                int numRead = port.readBytes(readBuffer, readBuffer.length);
-                if(data.equals("ping")){
-                    sendString(port,"pong");
-                }
-                //tego czegos nam chyba brakuje
-                /*
-                if(data.hasTerminator()){
-                    sendTextToController(recivedText);
-                    recivedText = "";
-                }
-                else{
-                    recivedText+=data;
-                }
-                */
-                System.out.println("Przeczytano " + numRead + " bajtow.");
-                System.out.println("Wiadomośc: " + data);
-            }
-        }
-        catch (Exception e) {
-            //e.printStackTrace();
-        data = "could not read";
-        }
-        finally {
-            port.closePort();
-        }
-        return data;
-    }
 
-    /*TODO
-     * dodac ping
-     */
+
     public String ping(SerialPort port){
         long startTime = System.nanoTime();
         long elapsedTime = 0;

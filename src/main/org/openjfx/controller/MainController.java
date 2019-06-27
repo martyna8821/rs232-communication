@@ -56,7 +56,6 @@ public class MainController implements Initializable {
     @FXML
     public void receive_chosen(ActionEvent event) throws Exception {
         fillSettings();
-        openPort();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         SceneLoader.loadScene("view/receive_mode.fxml", "receive", stage);
     }
@@ -64,7 +63,6 @@ public class MainController implements Initializable {
     @FXML
     public void send_chosen(ActionEvent event) throws Exception{
         fillSettings();
-        openPort();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         SceneLoader.loadScene("view/send_mode.fxml", "receive", stage);
     }
@@ -162,9 +160,10 @@ public class MainController implements Initializable {
         PortSettings.terminator = terminator.getValue();
 
     }
-
+    /*
     private void openPort(){
         SerialPort port = new SerialPortService().getInitializedPort(new PortSettings());
         PortSettings.openedPort = port;
     }
+    */
 }
