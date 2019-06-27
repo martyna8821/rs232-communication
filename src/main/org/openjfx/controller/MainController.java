@@ -122,7 +122,6 @@ public class MainController implements Initializable {
                 for (int i = 0; i < input.length(); i++) {
                     PortSettings.terminatorChars.add(input.charAt(i));
                 }
-                int a = 5;
                 break;
             }
         }

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.openjfx.model.SceneLoader;
 import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.MasterSettings;
+import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -57,8 +58,17 @@ public class MasterController implements Initializable {
         MasterSettings settings = new MasterSettings(retransmitionNumber.getValue(), timeoutValue, frameSpaceValue,
               inputText.getText(), slaveAddress.getValue());
 
-        //portService.SendString(settings,"123");
+        String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
+        //portService.SendString(settings, messageToSend);
 
+    }
+
+    private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
+        String result = "";
+        for(Character character : terminatorCharacters) {
+            result += character;
+        }
+        return result;
     }
 
     @Override
