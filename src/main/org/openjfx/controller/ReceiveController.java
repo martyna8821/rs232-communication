@@ -56,7 +56,7 @@ public class ReceiveController implements Initializable {
 
     @FXML
     public void ping(ActionEvent event) {
-        portService.ping();
+        //portService.ping();
     }
 
     @FXML

@@ -43,6 +43,7 @@ public class SerialPortService {
      */
     public String reciveData(SerialPort port){
         port.openPort();
+        String recivedText = "";
         String data;
         try {
             while (true)
@@ -53,6 +54,19 @@ public class SerialPortService {
                 byte[] readBuffer = new byte[port.bytesAvailable()];
                 data = readBuffer.toString();
                 int numRead = port.readBytes(readBuffer, readBuffer.length);
+                if(data.equals("ping")){
+                    sendString(port,"pong");
+                }
+                //tego czegos nam chyba brakuje
+                /*
+                if(data.hasTerminator()){
+                    sendTextToController(recivedText);
+                    recivedText = "";
+                }
+                else{
+                    recivedText+=data;
+                }
+                */
                 System.out.println("Przeczytano " + numRead + " bajtow.");
                 System.out.println("Wiadomośc: " + data);
             }
@@ -70,8 +84,38 @@ public class SerialPortService {
     /*TODO
      * dodac ping
      */
-    public boolean ping(){
-        return true;
+    public String ping(SerialPort port){
+        long startTime = System.nanoTime();
+        long elapsedTime = 0;
+        String data;
+        String message = "";
+        sendString(port,"ping");
+        try {
+            while (true) {
+                while (port.bytesAvailable() == 0 && elapsedTime<10000) {
+                    Thread.sleep(20);
+                    elapsedTime = (System.nanoTime() - startTime)/1000000; //milisekundy
+                }
+                if(elapsedTime >= 10000) {
+                    message = "odbiorca nie odpowiedzial";
+                }
+
+                byte[] readBuffer = new byte[port.bytesAvailable()];
+                data = readBuffer.toString();
+                if(data.equals("pong")){
+                    message = "odbiorca odpowiedzial po:" + elapsedTime + "milisekundach";
+                    break;
+                }
+                else continue;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+
+
+        }
+        return message;
+
     }
 
 }
