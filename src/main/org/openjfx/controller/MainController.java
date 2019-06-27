@@ -1,6 +1,7 @@
 package org.openjfx.controller;
 
 import com.fazecast.jSerialComm.SerialPort;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.PortSettings;
 import org.openjfx.model.SceneLoader;
 
@@ -54,6 +56,7 @@ public class MainController implements Initializable {
     @FXML
     public void receive_chosen(ActionEvent event) throws Exception {
         fillSettings();
+        openPort();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         SceneLoader.loadScene("view/receive_mode.fxml", "receive", stage);
     }
@@ -61,6 +64,7 @@ public class MainController implements Initializable {
     @FXML
     public void send_chosen(ActionEvent event) throws Exception{
         fillSettings();
+        openPort();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         SceneLoader.loadScene("view/send_mode.fxml", "receive", stage);
     }
@@ -71,8 +75,36 @@ public class MainController implements Initializable {
                 "LF", "CR-LF","custom" );
         terminator.setItems(availableTerminators);
         terminator.getSelectionModel().select(0);
+        terminator.getSelectionModel().selectedItemProperty()
+                .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                   if (newValue.equals("custom") && terminatorChar.getText().equals("")){
+                       btn_receive.setDisable(true);
+                       btn_send.setDisable(true);
+                   }
+                   else{
+                       btn_receive.setDisable(false);
+                       btn_send.setDisable(false);
+                   }
+                });
+
+        terminatorChar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(terminator.getValue().equals("custom") && newValue.equals("")){
+                btn_receive.setDisable(true);
+                btn_send.setDisable(true);
+            }
+            else{
+                btn_receive.setDisable(false);
+                btn_send.setDisable(false);
+            }
+
+        });
+
 
         SerialPort[] ports = SerialPort.getCommPorts();
+        if(ports.length == 0){
+            btn_send.setDisable(true);
+            btn_receive.setDisable(true);
+        }
         ObservableList<String> availablePorts = FXCollections.observableArrayList();
         for(SerialPort port: ports){
             availablePorts.add(port.getDescriptivePortName());
@@ -118,14 +150,21 @@ public class MainController implements Initializable {
                 break;
             }
             case "custom": {
-                String input = terminatorChar.getText(0, 2);
-                for (int i = 0; i < input.length(); i++) {
-                    PortSettings.terminatorChars.add(input.charAt(i));
-                }
+                    String input = terminatorChar.getText(0, 1);
+                    for (int i = 0; i < input.length(); i++) {
+                        PortSettings.terminatorChars.add(input.charAt(i));
+                    }
+
                 break;
+
             }
         }
         PortSettings.terminator = terminator.getValue();
 
+    }
+
+    private void openPort(){
+        SerialPort port = new SerialPortService().getInitializedPort(new PortSettings());
+        PortSettings.openedPort = port;
     }
 }

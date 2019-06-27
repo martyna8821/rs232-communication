@@ -39,7 +39,7 @@ public class SendController implements Initializable {
     @FXML
     public void send(ActionEvent event) throws Exception {
         String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
-        portService.sendString(portService.getInitializedPort(new PortSettings()), messageToSend);
+        portService.sendString(PortSettings.openedPort, messageToSend);
     }
 
     private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
