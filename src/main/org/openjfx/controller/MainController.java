@@ -41,28 +41,28 @@ public class MainController implements Initializable {
     public ChoiceBox<String> terminator;
 
     @FXML
-    public Button btn_master;
+    public Button btn_receive;
 
     @FXML
     public ChoiceBox<String> flowControl;
 
     @FXML
-    public Button btn_slave;
+    public Button btn_send;
 
 
 
     @FXML
-    public void master_chosen(ActionEvent event) throws Exception {
+    public void receive_chosen(ActionEvent event) throws Exception {
         fillSettings();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/master_mode.fxml", "MASTER", stage);
+        SceneLoader.loadScene("view/receive_mode.fxml", "receive", stage);
     }
 
     @FXML
-    public void slave_chosen(ActionEvent event) throws Exception{
+    public void send_chosen(ActionEvent event) throws Exception{
         fillSettings();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        SceneLoader.loadScene("view/slave_mode.fxml", "SLAVE", stage);
+        SceneLoader.loadScene("view/send_mode.fxml", "receive", stage);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MainController implements Initializable {
         parity.getSelectionModel().select(0);
         dataFieldLength.setItems(FXCollections.observableArrayList(7,8));
         dataFieldLength.getSelectionModel().select(0);
-        flowControl.setItems(FXCollections.observableArrayList("none", "hardware", "software"));
+        flowControl.setItems(FXCollections.observableArrayList("none", "DTR/DSR", "RTS/CTS", "XON/XOFF"));
         flowControl.getSelectionModel().select(0);
         baudRate.setItems(FXCollections.observableArrayList(150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600 ,117760));
         baudRate.getSelectionModel().select(0);

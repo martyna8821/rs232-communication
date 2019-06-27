@@ -11,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import org.openjfx.model.SceneLoader;
 import org.openjfx.model.SerialPortService;
-import org.openjfx.model.settings.MasterSettings;
 import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
@@ -54,9 +53,6 @@ public class MasterController implements Initializable {
         NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
         double frameSpaceValue = format.parse(frameSpace.getValue()).doubleValue();
         double timeoutValue = format.parse(timeout.getValue()).doubleValue();
-
-        MasterSettings settings = new MasterSettings(retransmitionNumber.getValue(), timeoutValue, frameSpaceValue,
-              inputText.getText(), slaveAddress.getValue());
 
         String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
         //portService.SendString(settings, messageToSend);

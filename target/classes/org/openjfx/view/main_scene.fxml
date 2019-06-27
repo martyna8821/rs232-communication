@@ -17,8 +17,8 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="btn_master" layoutX="50.0" layoutY="327.0" mnemonicParsing="false" onAction="#master_chosen" prefHeight="60.0" prefWidth="159.0" text="run as MASTER" />
-            <Button fx:id="btn_slave" layoutX="342.0" layoutY="327.0" mnemonicParsing="false" onAction="#slave_chosen" prefHeight="60.0" prefWidth="159.0" text="run as SLAVE" />
+            <Button fx:id="btn_receive" layoutX="50.0" layoutY="327.0" mnemonicParsing="false" onAction="#receive_chosen" prefHeight="60.0" prefWidth="159.0" text="receive" />
+            <Button fx:id="btn_send" layoutX="342.0" layoutY="327.0" mnemonicParsing="false" onAction="#send_chosen" prefHeight="60.0" prefWidth="159.0" text="send" />
             <Label layoutX="43.0" layoutY="48.0" prefHeight="34.0" prefWidth="97.0" text="baud rate:">
                <font>
                   <Font size="15.0" />

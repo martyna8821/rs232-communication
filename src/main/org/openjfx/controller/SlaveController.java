@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import org.openjfx.model.SceneLoader;
 import org.openjfx.model.SerialPortService;
-import org.openjfx.model.settings.SlaveSettings;
 import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
@@ -49,8 +48,6 @@ public class SlaveController implements Initializable {
 
         NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
         double frameSpaceValue = format.parse(frameSpace.getValue()).doubleValue();
-
-        SlaveSettings settings = new SlaveSettings(address.getValue(), frameSpaceValue, receivedText.getText());
 
 
         // !! użyć metody truncateReceivedTextToTerminator i tekst, który ona wypluje ustawiać dopiero na widoku !!
