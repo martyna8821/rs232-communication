@@ -34,10 +34,30 @@ public class PortSettings {
 
  public int getParity() {
   int parity = SerialPort.NO_PARITY;
-  switch(parity){
-   case 'E': parity=SerialPort.EVEN_PARITY;
-   case 'O': parity=SerialPort.ODD_PARITY;
+  switch(PortSettings.parity){
+   case 'E': parity=SerialPort.EVEN_PARITY; break;
+   case 'O': parity=SerialPort.ODD_PARITY; break;
+   default: break;
   }
   return parity;
+ }
+
+ public int getFlowControl() {
+  int flowControlToReturn;
+  switch(PortSettings.flowControl){
+   case "DTR/DSR":
+    flowControlToReturn = SerialPort.FLOW_CONTROL_DTR_ENABLED | SerialPort.FLOW_CONTROL_DSR_ENABLED;
+    break;
+   case "RTS/CTS":
+    flowControlToReturn = SerialPort.FLOW_CONTROL_RTS_ENABLED | SerialPort.FLOW_CONTROL_CTS_ENABLED;
+    break;
+   case "XON/XOFF":
+    flowControlToReturn = SerialPort.FLOW_CONTROL_XONXOFF_IN_ENABLED | SerialPort.FLOW_CONTROL_XONXOFF_OUT_ENABLED;
+    break;
+   default: // "none" flow control
+    flowControlToReturn = SerialPort.FLOW_CONTROL_DISABLED;
+    break;
+  }
+  return flowControlToReturn;
  }
 }

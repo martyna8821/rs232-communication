@@ -5,9 +5,6 @@ import org.openjfx.model.settings.PortSettings;
 
 public class SerialPortService {
 
-    /*TODO
-     * jeszcze ta kontrola przeplywu nie jest nigdzie uwzgledniona
-     */
     public SerialPort getInitializedPort(PortSettings settings){
         SerialPort port = SerialPort.getCommPort(settings.getPortDescription());
         if(port!=null) {
@@ -23,6 +20,7 @@ public class SerialPortService {
                     settings.getBaudRate(),settings.getDataBits(),
                     settings.getStopBits(),settings.getParity()
             );
+            port.setFlowControl(settings.getFlowControl());
         }
         else{
             System.out.println("Nie udało sie dostać żadnego portu => JESTESMY W DUPIE");
@@ -77,4 +75,5 @@ public class SerialPortService {
     public boolean ping(){
         return true;
     }
+
 }
