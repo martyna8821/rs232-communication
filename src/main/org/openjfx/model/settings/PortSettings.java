@@ -2,6 +2,9 @@ package org.openjfx.model.settings;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PortSettings {
 
    // public static SerialPort port;
@@ -11,8 +14,8 @@ public class PortSettings {
     public static char parity;
     public static int stop;
     public static String flowControl;
-    public static String terminator;
-    public static String terminatorChar;
+    public static String terminator; // opis terminatora, "CR", "LF", "custom", "none"
+    public static List<Character> terminatorChars = new ArrayList(); // znaki terminatora, 1 lub 2
 
 
  public String getPortDescription() {
@@ -40,6 +43,14 @@ public class PortSettings {
    default: break;
   }
   return parity;
+ }
+
+ public String getTerminator() {
+  return terminator;
+ }
+
+ public static List<Character> getTerminatorChars() {
+  return terminatorChars;
  }
 
  public int getFlowControl() {

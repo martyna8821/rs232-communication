@@ -2,14 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9757e1a-4de0-4ac8-8ea4-cd8dca9ceaa3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/org/openjfx/controller/ReceiveController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/org/openjfx/controller/SendController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/org/openjfx/view/receive_mode.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/org/openjfx/view/send_mode.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/main/org/openjfx/view/main_scene.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/main/org/openjfx/view/receive_mode.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/main/org/openjfx/view/send_mode.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/controller/ReceiveController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/controller/SendController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/view/receive_mode.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/view/send_mode.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/controller/MasterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/controller/MasterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/controller/SlaveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/controller/SlaveController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/model/SerialPortService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/model/SerialPortService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/model/settings/MasterSettings.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/model/settings/PortSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/model/settings/PortSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/model/settings/SlaveSettings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/view/main_scene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/org/openjfx/view/main_scene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/view/master_mode.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/org/openjfx/view/slave_mode.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/controller/MasterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/controller/MasterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/controller/SlaveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/controller/SlaveController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/model/SerialPortService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/model/SerialPortService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/model/settings/MasterSettings.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/model/settings/PortSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/model/settings/PortSettings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/model/settings/SlaveSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/view/main_scene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/openjfx/view/main_scene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/view/master_mode.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/view/slave_mode.fxml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,22 +43,45 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1765956998">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.53" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="5" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="5" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="5" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/App.java">
+        <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/MasterController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/model/SerialPortService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1275">
-              <caret line="77" selection-start-line="77" selection-end-line="77" />
+            <state relative-caret-position="399">
+              <caret line="42" column="43" lean-forward="true" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,11 +89,38 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="642" column="14" lean-forward="true" selection-start-line="642" selection-start-column="14" selection-end-line="642" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/ReceiveController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-213">
-              <caret line="76" column="36" selection-start-line="76" selection-start-column="36" selection-end-line="76" selection-end-column="36" />
+            <state relative-caret-position="-1054">
+              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/SlaveController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="49" column="80" lean-forward="true" selection-start-line="49" selection-start-column="80" selection-end-line="49" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,8 +131,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/model/settings/PortSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="32" column="2" lean-forward="true" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+            <state relative-caret-position="901">
+              <caret line="64" column="19" lean-forward="true" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
+              <folding>
+                <element signature="e#1221#1222#0" expanded="true" />
+                <element signature="e#1250#1251#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,17 +227,16 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
-    <option name="width" value="697" />
-    <option name="height" value="735" />
+    <option name="x" value="303" />
+    <option name="y" value="-18" />
+    <option name="width" value="960" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,10 +295,17 @@
               <item name="openjfx" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="rs232-communication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rs232-communication" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -315,9 +399,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1354009" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -326,7 +411,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.052715655" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2405892" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24052005" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39968154" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -377,6 +462,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/xd/Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/openjfx/controller/MainController.java" />
@@ -398,12 +486,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/view/receive_mode.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/model/settings/MasterSettings.java" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -414,23 +502,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/view/send_mode.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="166" selection-start-line="9" selection-start-column="166" selection-end-line="9" selection-end-column="166" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/model/settings/SlaveSettings.java" />
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/ReceiveController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-            <element signature="e#1240#1241#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -442,20 +525,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/view/main_scene.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/SendController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -463,9 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -478,18 +555,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/model/settings/PortSettings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="32" column="2" lean-forward="true" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+        <state relative-caret-position="901">
+          <caret line="64" column="19" lean-forward="true" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
+          <folding>
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#1250#1251#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/org/openjfx/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="76" column="36" selection-start-line="76" selection-start-column="36" selection-end-line="76" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1054">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -497,9 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
           <caret line="77" selection-start-line="77" selection-end-line="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

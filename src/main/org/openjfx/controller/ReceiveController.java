@@ -12,6 +12,9 @@ import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.PortSettings;
 
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ReceiveController implements Initializable {
@@ -32,8 +35,19 @@ public class ReceiveController implements Initializable {
 
     @FXML
     public void receive(ActionEvent event) throws  Exception{
+        receivedText.setText(truncateReceivedTextToTerminator(portService.reciveData(portService.getInitializedPort(new PortSettings()))));
+    }
 
-        receivedText.setText(portService.reciveData(portService.getInitializedPort(new PortSettings())));
+    private String truncateReceivedTextToTerminator(String receivedText) {
+        return receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()))[0];
+    }
+
+    private String terminatorCharactersAsString(List<Character> terminatorCharacters) {
+        String result = "";
+        for(Character character : terminatorCharacters) {
+            result += character;
+        }
+        return result;
     }
 
     @Override
