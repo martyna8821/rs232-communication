@@ -51,6 +51,8 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         portService = new SerialPortService();
+        openPort();
+
     }
 
     @FXML
@@ -91,5 +93,9 @@ public class ReceiveController implements Initializable, SerialPortDataListener 
 
 
 
+    }
+    private void openPort(){
+        SerialPort port = new SerialPortService().getInitializedPort(new PortSettings(),this);
+        PortSettings.openedPort = port;
     }
 }
