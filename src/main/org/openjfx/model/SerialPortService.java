@@ -28,9 +28,6 @@ public class SerialPortService {
         return port;
     }
 
-    /*TODO
-     * dodac dodanie odpowiedniego terminatora na koncu
-     */
     public void sendString(SerialPort port,String message){
         port.openPort();
         int bytesWritten = port.writeBytes(message.getBytes(), message.length());

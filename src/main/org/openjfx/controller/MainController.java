@@ -1,6 +1,7 @@
 package org.openjfx.controller;
 
 import com.fazecast.jSerialComm.SerialPort;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,6 +72,30 @@ public class MainController implements Initializable {
                 "LF", "CR-LF","custom" );
         terminator.setItems(availableTerminators);
         terminator.getSelectionModel().select(0);
+        terminator.getSelectionModel().selectedItemProperty()
+                .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                   if (newValue.equals("custom") && terminatorChar.getText().equals("")){
+                       btn_receive.setDisable(true);
+                       btn_send.setDisable(true);
+                   }
+                   else{
+                       btn_receive.setDisable(false);
+                       btn_send.setDisable(false);
+                   }
+                });
+
+        terminatorChar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(terminator.getValue().equals("custom") && newValue.equals("")){
+                btn_receive.setDisable(true);
+                btn_send.setDisable(true);
+            }
+            else{
+                btn_receive.setDisable(false);
+                btn_send.setDisable(false);
+            }
+
+        });
+
 
         SerialPort[] ports = SerialPort.getCommPorts();
         ObservableList<String> availablePorts = FXCollections.observableArrayList();
@@ -118,11 +143,13 @@ public class MainController implements Initializable {
                 break;
             }
             case "custom": {
-                String input = terminatorChar.getText(0, 2);
-                for (int i = 0; i < input.length(); i++) {
-                    PortSettings.terminatorChars.add(input.charAt(i));
-                }
+                    String input = terminatorChar.getText(0, 1);
+                    for (int i = 0; i < input.length(); i++) {
+                        PortSettings.terminatorChars.add(input.charAt(i));
+                    }
+
                 break;
+
             }
         }
         PortSettings.terminator = terminator.getValue();
