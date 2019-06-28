@@ -6,6 +6,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import org.openjfx.model.settings.PortSettings;
 
 public class SerialPortService {
+    private boolean pongReceived = false;
 
     public SerialPort getInitializedPort(PortSettings settings, SerialPortDataListener dataListener){
         SerialPort port = SerialPort.getCommPort(settings.getPortDescription());
@@ -27,6 +28,7 @@ public class SerialPortService {
         else{
             System.out.println("Nie udało sie dostać żadnego portu => JESTESMY W DUPIE");
         }
+        port.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING,0,0);
         port.openPort();
         port.addDataListener(dataListener);
         return port;
@@ -47,12 +49,13 @@ public class SerialPortService {
     public String ping(SerialPort port){
         long startTime = System.nanoTime();
         long elapsedTime = 0;
-        String data;
+        String data="";
+        char input;
         String message = "";
         sendString(port,"ping");
         try {
             while (true) {
-                while (port.bytesAvailable() == 0 && elapsedTime<10000) {
+                while ( !pongReceived && elapsedTime<10000) {
                     Thread.sleep(20);
                     elapsedTime = (System.nanoTime() - startTime)/1000000; //milisekundy
                 }
@@ -60,10 +63,10 @@ public class SerialPortService {
                     message = "odbiorca nie odpowiedzial";
                 }
 
-                byte[] readBuffer = new byte[port.bytesAvailable()];
-                data = readBuffer.toString();
-                if(data.equals("pong")){
+
+                if(this.pongReceived){
                     message = "odbiorca odpowiedzial po:" + elapsedTime + "milisekundach";
+                    clearPongReceived();
                     break;
                 }
                 else continue;
@@ -76,6 +79,13 @@ public class SerialPortService {
         }
         return message;
 
+    }
+
+    public void pongReceived() {
+        pongReceived=true;
+    }
+    public void clearPongReceived() {
+        pongReceived=false;
     }
 
 }

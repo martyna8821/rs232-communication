@@ -16,6 +16,7 @@ public class PortSettings {
     public static String flowControl;
     public static String terminator; // opis terminatora, "CR", "LF", "custom", "none"
     public static List<Character> terminatorChars = new ArrayList(); // znaki terminatora, 1 lub 2
+ public static int portId;
 
 
  public String getPortDescription() {
