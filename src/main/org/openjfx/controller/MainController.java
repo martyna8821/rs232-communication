@@ -143,6 +143,7 @@ public class MainController implements Initializable, SerialPortDataListener {
         PortSettings.parity = parity.getValue();
         PortSettings.port = port.getValue();
         PortSettings.stop = stop.getValue();
+        PortSettings.terminatorChars.clear();
         switch (terminator.getValue()) {
             // jeśli none, to ustawimy poniżej tylko terminator na "none"
             case "CR": {
