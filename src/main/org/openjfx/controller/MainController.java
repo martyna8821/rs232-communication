@@ -59,7 +59,7 @@ public class MainController implements Initializable, SerialPortDataListener {
     private SerialPortService portService = new SerialPortService();
 
     private boolean portOpened = false;
-    private String data="";
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -197,8 +197,13 @@ public class MainController implements Initializable, SerialPortDataListener {
     }
 
     private String getLastReceivedString(String receivedText) {
-        String [] strings = receivedText.split(terminatorCharactersAsString());
-        return strings[strings.length-1];
+        if(PortSettings.terminator.equals("none")){
+            return receivedText;
+        }
+        else {
+            String[] strings = receivedText.split(terminatorCharactersAsString());
+            return strings[strings.length - 1];
+        }
     }
 
     private String terminatorCharactersAsString() {
@@ -216,30 +221,33 @@ public class MainController implements Initializable, SerialPortDataListener {
     @Override
     public void serialEvent(SerialPortEvent event) {
 
-        char input;
         if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
             return;
+
+        StringBuilder input = new StringBuilder();
         System.out.println("input handle");
         byte[] readBuffer = new byte[PortSettings.openedPort.bytesAvailable()];
 
         int numRead = PortSettings.openedPort.readBytes(readBuffer, readBuffer.length);
-        int i = (int)readBuffer[0];
-        input = (char)i;
-        int begin = getLastReceivedString(data).length()-3;
-        data+=input;
-        if(begin >=0 && getLastReceivedString(data).substring(begin).equals("ping")){
+
+        for (byte b : readBuffer) {
+            input.append((char)b);
+        }
+
+        if(input.toString().equals("ping")){
             portService.sendString(PortSettings.openedPort,"pong");
             System.out.println("Ktos mnie pinguje");
         }
-        if(begin >=0 && getLastReceivedString(data).substring(begin).equals("pong")){
-            portService.setPongReceived(true);
-            System.out.println("Ja pinguje");
-        }
-        else{
 
+        if(input.toString().equals("pong")){
+            portService.setPongReceived(true);
+            System.out.println("Dostalem ponga");
+        }
+
+       if(numRead > 0){
             System.out.println("Przeczytano " + numRead + " bajtow.");
             System.out.println("Wiadomośc: " + input);
-            receivedText.setText(getLastReceivedString(data));
+            receivedText.setText(input.toString());
         }
     }
 }
