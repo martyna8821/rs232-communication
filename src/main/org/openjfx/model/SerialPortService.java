@@ -46,7 +46,6 @@ public class SerialPortService {
         long startTime = System.nanoTime();
         long elapsedTime = 0;
         String messageToReturn = "";
-        sendString(port,"ping");
         try {
             while (true) {
                 if ( !pongReceived && elapsedTime<10000) {
