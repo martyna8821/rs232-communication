@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable, SerialPortDataListener {
 
+    //region fxml attributes
     @FXML
     public ChoiceBox<Integer> baudRate;
     @FXML
@@ -53,69 +54,30 @@ public class MainController implements Initializable, SerialPortDataListener {
     public Button pingBtn;
     @FXML
     public TextArea inputText;
+    //endregion
 
     private SerialPortService portService = new SerialPortService();
 
     private boolean portOpened = false;
-    private String data="";
-
-    @FXML
-    public void ping(ActionEvent event) {
-        if(portOpened) {
-            receivedText.setText(portService.ping(PortSettings.openedPort));
-        }
-        else System.out.println("port nie jest otwarty!");
-    }
-
-    @FXML
-     public void sendText(ActionEvent event) {
-        if(portOpened) {
-            String messageToSend = inputText.getText() + appendTerminatorCharacters(PortSettings.getTerminatorChars());
-            portService.sendString(PortSettings.openedPort, messageToSend);
-        }
-        else System.out.println("port nie jest otwarty!");
-    }
-
-    private String appendTerminatorCharacters(List<Character> terminatorCharacters) {
-        StringBuilder result = new StringBuilder();
-        for(Character character : terminatorCharacters) {
-            result.append(character);
-        }
-        return result.toString();
-    }
-
-    @FXML
-    public void openPort(ActionEvent event) {
-        fillSettings();
-        PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
-        if(PortSettings.openedPort == null){
-            receivedText.setText("nie udalo sie otworzyc portu");
-        }
-        else{
-            portOpened = true;
-        }
-    }
-
-    @FXML
-    public void closePort(ActionEvent event) {
-        PortSettings.openedPort.closePort();
-
-    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        closePortBtn.setDisable(true);
         terminator.setItems(FXCollections.observableArrayList("none","CR","LF", "CR-LF","custom" ));
         terminator.getSelectionModel().select(0);
+        terminatorChar.setDisable(true);
         terminator.getSelectionModel().selectedItemProperty()
                 .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                   if (newValue.equals("custom") && terminatorChar.getText().equals("")){
-                       openPortBtn.setDisable(true);
-                   }
-                   else{
-                       openPortBtn.setDisable(false);
-                   }
+                    if (newValue.equals("custom") && terminatorChar.getText().equals("")){
+                        openPortBtn.setDisable(true);
+                        terminatorChar.setDisable(false);
+                    }
+                    else{
+                        openPortBtn.setDisable(false);
+                        terminatorChar.setDisable(true);
+                    }
                 });
 
         terminatorChar.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -151,6 +113,28 @@ public class MainController implements Initializable, SerialPortDataListener {
         baudRate.getSelectionModel().select(0);
     }
 
+    @FXML
+    public void openPort(ActionEvent event) {
+        openPortBtn.setDisable(true);
+        closePortBtn.setDisable(false);
+        fillSettings();
+        PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
+        if(PortSettings.openedPort == null){
+          System.out.println("nie udalo sie otworzyc portu");
+        }
+        else{
+            portOpened = true;
+            System.out.println("Port otwarty pomyslnie");
+        }
+    }
+
+    @FXML
+    public void closePort(ActionEvent event) {
+        openPortBtn.setDisable(false);
+        closePortBtn.setDisable(true);
+        PortSettings.openedPort.closePort();
+        this.portOpened = false;
+    }
 
     private void fillSettings(){
         PortSettings.baudRate = baudRate.getValue();
@@ -159,6 +143,7 @@ public class MainController implements Initializable, SerialPortDataListener {
         PortSettings.parity = parity.getValue();
         PortSettings.port = port.getValue();
         PortSettings.stop = stop.getValue();
+        PortSettings.terminatorChars.clear();
         switch (terminator.getValue()) {
             // jeśli none, to ustawimy poniżej tylko terminator na "none"
             case "CR": {
@@ -175,29 +160,59 @@ public class MainController implements Initializable, SerialPortDataListener {
                 break;
             }
             case "custom": {
-                    String input = terminatorChar.getText(0, 1);
-                    for (int i = 0; i < input.length(); i++) {
-                        PortSettings.terminatorChars.add(input.charAt(i));
-                    }
-
+                String input = terminatorChar.getText(0, 1);
+                for (int i = 0; i < input.length(); i++) {
+                    PortSettings.terminatorChars.add(input.charAt(i));
+                }
                 break;
-
             }
         }
         PortSettings.terminator = terminator.getValue();
     }
-    private String truncateReceivedTextToTerminator(String receivedText) {
-        String [] strings = receivedText.split(terminatorCharactersAsString(PortSettings.getTerminatorChars()));
-        return strings[strings.length-1];
+
+    @FXML
+    public void ping(ActionEvent event) {
+        if(portOpened) {
+            receivedText.setText(portService.ping(PortSettings.openedPort));
+        }
+        else
+            System.out.println("port nie jest otwarty!");
     }
 
-    private String terminatorCharactersAsString(List<Character> terminatorCharacters) {
-        String result = "";
-        for(Character character : terminatorCharacters) {
-            result += character;
+    @FXML
+    public void sendText(ActionEvent event) {
+        if(portOpened){
+            String messageToSend = appendTerminatorCharacters(inputText.getText());
+            portService.sendString(PortSettings.openedPort, messageToSend);
         }
-        return result;
+        else
+            System.out.println("port nie jest otwarty!");
     }
+
+    //region terminator characters
+    private String appendTerminatorCharacters(String message) {
+        StringBuilder result = new StringBuilder();
+        result.append(message);
+        PortSettings.terminatorChars.forEach(c -> result.append(c));
+        return result.toString();
+    }
+
+    private String getLastReceivedString(String receivedText) {
+        if(PortSettings.terminator.equals("none")){
+            return receivedText;
+        }
+        else {
+            String[] strings = receivedText.split(terminatorCharactersAsString());
+            return strings[strings.length - 1];
+        }
+    }
+
+    private String terminatorCharactersAsString() {
+        StringBuilder result = new StringBuilder();
+        PortSettings.terminatorChars.forEach(c -> result.append(c));
+        return result.toString();
+    }
+    //endregion
 
     @Override
     public int getListeningEvents() {
@@ -207,30 +222,33 @@ public class MainController implements Initializable, SerialPortDataListener {
     @Override
     public void serialEvent(SerialPortEvent event) {
 
-        char input;
         if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
             return;
+
+        StringBuilder input = new StringBuilder();
         System.out.println("input handle");
         byte[] readBuffer = new byte[PortSettings.openedPort.bytesAvailable()];
 
         int numRead = PortSettings.openedPort.readBytes(readBuffer, readBuffer.length);
-        int i = (int)readBuffer[0];
-        input = (char)i;
-        int begin = truncateReceivedTextToTerminator(data).length()-3;
-        data+=input;
-        if(begin >=0 && truncateReceivedTextToTerminator(data).substring(begin).equals("ping")){
+
+        for (byte b : readBuffer) {
+            input.append((char)b);
+        }
+
+        if(input.toString().equals("ping")){
             portService.sendString(PortSettings.openedPort,"pong");
             System.out.println("Ktos mnie pinguje");
         }
-        if(begin >=0 && truncateReceivedTextToTerminator(data).substring(begin).equals("pong")){
-            portService.pongReceived();
-            System.out.println("Ktos mnie pinguje");
-        }
-        else{
 
+        if(input.toString().equals("pong")){
+            portService.setPongReceived(true);
+            System.out.println("Dostalem ponga");
+        }
+
+       if(numRead > 0){
             System.out.println("Przeczytano " + numRead + " bajtow.");
             System.out.println("Wiadomośc: " + input);
-            receivedText.setText(truncateReceivedTextToTerminator(data));
+            receivedText.setText(input.toString());
         }
     }
 }
