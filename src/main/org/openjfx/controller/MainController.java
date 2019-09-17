@@ -9,18 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.openjfx.model.SerialPortService;
 import org.openjfx.model.settings.PortSettings;
-import org.openjfx.model.SceneLoader;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, SerialPortDataListener {
@@ -202,12 +198,12 @@ public class MainController implements Initializable, SerialPortDataListener {
             return receivedText;
         }
         else {
-            String[] strings = receivedText.split(terminatorCharactersAsString());
+            String[] strings = receivedText.split(getTerminatorCharactersAsString());
             return strings[strings.length - 1];
         }
     }
 
-    private String terminatorCharactersAsString() {
+    private String getTerminatorCharactersAsString() {
         StringBuilder result = new StringBuilder();
         PortSettings.terminatorChars.forEach(c -> result.append(c));
         return result.toString();
@@ -235,20 +231,38 @@ public class MainController implements Initializable, SerialPortDataListener {
             input.append((char)b);
         }
 
-        if(input.toString().equals("ping")){
+        String inputAfterTerminator = input.toString();
+        // obcięcie wiadomosci do terminatora, jesli go uzywamy
+        String currentTerminator = getTerminatorCharactersAsString();
+        if (!currentTerminator.isEmpty()) {
+            inputAfterTerminator = input.toString().split(currentTerminator)[0];
+        }
+
+//        String currentTerminator = getTerminatorCharactersAsString();
+//        if(input.toString().contains(currentTerminator)) {
+//            if (currentTerminator.length() > 1) {
+//                input.delete(input.length() - currentTerminator.length(), input.length() - 1);
+//            }
+//            else if (currentTerminator.length() == 1 ) {
+//                input.deleteCharAt(input.length() - 1);
+//            }
+//        }
+
+        if(inputAfterTerminator.equals("ping")){
             portService.sendString(PortSettings.openedPort,"pong");
             System.out.println("Ktos mnie pinguje");
         }
 
-        if(input.toString().equals("pong")){
+        if(inputAfterTerminator.equals("pong")){
             portService.setPongReceived(true);
             System.out.println("Dostalem ponga");
         }
 
        if(numRead > 0){
             System.out.println("Przeczytano " + numRead + " bajtow.");
-            System.out.println("Wiadomośc: " + input);
-            receivedText.setText(input.toString());
+            System.out.println("Wiadomość do wyświetlenia: " + inputAfterTerminator);
+            System.out.println("długosc wiadomości do wyświetlenia " + inputAfterTerminator.length());
+            receivedText.setText(inputAfterTerminator);
         }
     }
 }
