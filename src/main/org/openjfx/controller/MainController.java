@@ -232,22 +232,12 @@ public class MainController implements Initializable, SerialPortDataListener {
             input.append((char)b);
         }
 
-        String inputAfterTerminator = input.toString();
         // obcięcie wiadomosci do terminatora, jesli go uzywamy
+        String inputAfterTerminator = input.toString();
         String currentTerminator = getTerminatorCharactersAsString();
         if (!currentTerminator.isEmpty()) {
             inputAfterTerminator = input.toString().split(currentTerminator)[0];
         }
-
-//        String currentTerminator = getTerminatorCharactersAsString();
-//        if(input.toString().contains(currentTerminator)) {
-//            if (currentTerminator.length() > 1) {
-//                input.delete(input.length() - currentTerminator.length(), input.length() - 1);
-//            }
-//            else if (currentTerminator.length() == 1 ) {
-//                input.deleteCharAt(input.length() - 1);
-//            }
-//        }
 
         if(inputAfterTerminator.equals("ping")){
             portService.sendString(PortSettings.openedPort,appendTerminatorCharacters("pong"));
