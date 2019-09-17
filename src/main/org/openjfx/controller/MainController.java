@@ -107,12 +107,15 @@ public class MainController implements Initializable, SerialPortDataListener {
         flowControl.getSelectionModel().select(0);
         baudRate.setItems(FXCollections.observableArrayList(150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600 ,117760));
         baudRate.getSelectionModel().select(0);
+        sendBtn.setDisable(true);
+        pingBtn.setDisable(true);
     }
 
     @FXML
     public void openPort(ActionEvent event) {
         openPortBtn.setDisable(true);
         closePortBtn.setDisable(false);
+        this.setSettingsFieldsDisable(true);
         fillSettings();
         PortSettings.openedPort = new SerialPortService().getInitializedPort(new PortSettings(),this);
         if(PortSettings.openedPort == null){
@@ -128,6 +131,7 @@ public class MainController implements Initializable, SerialPortDataListener {
     public void closePort(ActionEvent event) {
         openPortBtn.setDisable(false);
         closePortBtn.setDisable(true);
+        this.setSettingsFieldsDisable(false);
         PortSettings.openedPort.closePort();
         this.portOpened = false;
     }
@@ -255,5 +259,18 @@ public class MainController implements Initializable, SerialPortDataListener {
             System.out.println("długosc wiadomości do wyświetlenia " + inputAfterTerminator.length());
             receivedText.setText(inputAfterTerminator);
         }
+    }
+
+    private void setSettingsFieldsDisable(boolean isDisable){
+        baudRate.setDisable(isDisable);
+        parity.setDisable(isDisable);
+        dataFieldLength.setDisable(isDisable);
+        stop.setDisable(isDisable);
+        terminatorChar.setDisable(isDisable);
+        port.setDisable(isDisable);
+        terminator.setDisable(isDisable);
+        flowControl.setDisable(isDisable);
+        sendBtn.setDisable(!isDisable);
+        pingBtn.setDisable(!isDisable);
     }
 }
