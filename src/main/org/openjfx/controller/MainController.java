@@ -169,6 +169,7 @@ public class MainController implements Initializable, SerialPortDataListener {
     @FXML
     public void ping(ActionEvent event) {
         if(portOpened) {
+            portService.sendString(PortSettings.openedPort ,appendTerminatorCharacters("ping"));
             receivedText.setText(portService.ping(PortSettings.openedPort));
         }
         else
@@ -249,7 +250,7 @@ public class MainController implements Initializable, SerialPortDataListener {
 //        }
 
         if(inputAfterTerminator.equals("ping")){
-            portService.sendString(PortSettings.openedPort,"pong");
+            portService.sendString(PortSettings.openedPort,appendTerminatorCharacters("pong"));
             System.out.println("Ktos mnie pinguje");
         }
 
